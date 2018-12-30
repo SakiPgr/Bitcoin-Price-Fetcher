@@ -7,6 +7,12 @@ from openpyxl import Workbook, load_workbook
 
 BITCOIN_PRICE_URL = 'https://api.coinmarketcap.com/v1/ticker/bitcoin/'
 excel_file = 'bitcoinprice.xlsx'
+column_names = ["Katametrisi",
+        "Ημερομηνία",
+        "Ώρα",
+        "Τιμή σε Δολάριο",
+        "Τιμή σε Ευρώ",
+        "Timh Dolariou")
 
 
 def main():
@@ -22,10 +28,14 @@ def CheckForWorkbook(book):
         datetime.datetime.now().strftime("%H:%M")])
         return wb
     else:
-        wb = Workbook()
-        ws = wb.active
-        ws.append(["Ημερομηνία", "Ώρα", "Τιμή σε Δολάριο", "Τιμή σε Ευρώ"])
-        return wb
+        return FirstEntry()
+
+
+def FirstEntry():
+    wb = Workbook()
+    ws = wb.active
+    ws.append(column_names)
+    return wb
 
 
 #  The price in Dollar of Bitcoin
@@ -37,6 +47,7 @@ def GetBitcoinPrice(url):
     return bitcoin_price_round_float
 
 
+# The Dollar to Euro conversion rate
 def GetDollarToEuroConversionRate(url):
     response = requests.get(url)
     response_json = response.json()
