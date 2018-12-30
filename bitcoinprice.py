@@ -1,5 +1,6 @@
 import requests
 import datetime
+import accesskey  # I import url+accesskey to get conversion rate to euro
 import os.path as path
 from openpyxl import Workbook, load_workbook
 
@@ -27,7 +28,7 @@ def CheckForWorkbook(book):
         return wb
 
 
-#  The price in Dollar of bitcoin
+#  The price in Dollar of Bitcoin
 def GetBitcoinPrice(url):
     response = requests.get(BITCOIN_PRICE_URL)
     response_json = response.json()
@@ -36,5 +37,12 @@ def GetBitcoinPrice(url):
     return bitcoin_price_round_float
 
 
+def GetDollarToEuroConversionRate(url):
+    response = requests.get(url)
+    response_json = response.json()
+    return response_json['quotes']['USDEUR']
+
+
 if __name__ == "__main__":
-    main()
+    GetDollarToEuroConversionRate(accesskey.AccessKey())
+
