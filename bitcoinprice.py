@@ -8,10 +8,10 @@ from openpyxl import Workbook, load_workbook
 BITCOIN_PRICE_URL = 'https://api.coinmarketcap.com/v1/ticker/bitcoin/'
 excel_file = 'bitcoinprice.xlsx'
 column_names = ["Ημερομηνία",
-        "Ώρα",
-        "Τιμή σε Δολάριο",
-        "Τιμή σε Ευρώ",
-        "Τιμή Δολαρίου"]
+                "Ώρα",
+                "Τιμή σε Δολάριο",
+                "Τιμή σε Ευρώ",
+                "Τιμή Δολαρίου"]
 
 
 def main():
@@ -39,15 +39,15 @@ def FirstEntry():
 def ConsecutiveEntry(book):
     ws = book.active
     ws.append([DateAndTime()[0],
-        DateAndTime()[1],
-        RoundNumbers(bitcoin_dollar),
-        RoundNumbers(BitcoinPriceInEuro()),
-        GetDollarToEuroConversionRate(accesskey.AccessKey())])
+               DateAndTime()[1],
+               RoundNumbers(bitcoin_dollar),
+               RoundNumbers(BitcoinPriceInEuro()),
+               GetDollarToEuroConversionRate(accesskey.AccessKey())])
     return book
 
 
 def DateAndTime():
-    date_now = datetime.datetime.now().strftime('%m-%w-%Y')
+    date_now = datetime.datetime.now().strftime('%Y-%m-%d')
     time_now = datetime.datetime.now().strftime('%H:%M')
     return (date_now, time_now)
 
@@ -83,4 +83,3 @@ dollar_to_euro = GetDollarToEuroConversionRate(accesskey.AccessKey())
 
 if __name__ == "__main__":
     main()
-
